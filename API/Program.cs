@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -22,8 +18,8 @@ namespace API
                 var services = scope.ServiceProvider;
                 try{
                     var context = services.GetRequiredService<DataContext>();
-                    context.Database.Migrate();
-                    //aca lo que estoy haciendo es automatizar las migraciones para que se apliquen hasta la ultima cada vez que se ejecuta la solucion. De otro modo habria que hacerlo desde la CLI
+                    context.Database.Migrate();//aca lo que estoy haciendo es automatizar las migraciones para que se apliquen hasta la ultima cada vez que se ejecuta la solucion. De otro modo habria que hacerlo desde la CLI
+                    Seed.SeedData(context);
                 }
                 catch(Exception ex){
                     var logger = services.GetRequiredService<ILogger<Program>>();
