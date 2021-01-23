@@ -3,6 +3,7 @@ import axios from "axios";
 import { Container, Header, Icon, List } from "semantic-ui-react";
 import { IActivity } from "../modules/activity";
 import { Navbar } from "../../features/nav/navbar";
+import { ActivityDashboard } from "../../features/activities/dashboard/ActivityDashboard";
 
 const App = () => {
   const [activities, setActivities] = useState<IActivity[]>([]); //activities = the state itself, and setActivities is the function that sets it
@@ -19,11 +20,7 @@ const App = () => {
     <Fragment>
       <Navbar />
       <Container style ={{marginTop: '7em'}}>
-        <List>
-          {activities.map((activity: IActivity) => (
-            <List.Item key={activity.id}>{activity.title}</List.Item>
-          ))}
-        </List>
+        <ActivityDashboard activities={activities}></ActivityDashboard>
       </Container>
     </Fragment>
   );
