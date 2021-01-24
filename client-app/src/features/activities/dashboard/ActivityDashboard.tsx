@@ -12,6 +12,8 @@ interface IProps {
   editMode: boolean;
   setEditMode: (editMode: boolean) => void;
   setSelectedActivity: (activity: IActivity | null) => void;
+  createActivity: (activity: IActivity) => void;
+  editActivity: (activity:IActivity) => void;
 }
 
 export const ActivityDashboard = ({
@@ -20,7 +22,9 @@ export const ActivityDashboard = ({
   selectedActivity,
   editMode,
   setEditMode,
-  setSelectedActivity
+  setSelectedActivity,
+  createActivity,
+  editActivity
 }: IProps) => {
   // {activities} is equivalent to activities = props.activities. This is called de-structuring
   return (
@@ -32,7 +36,7 @@ export const ActivityDashboard = ({
         {selectedActivity && !editMode && (
           <ActivityDetails activity={selectedActivity} setEditMode = {setEditMode} setSelectedActivity = {setSelectedActivity} />
         )}
-        {editMode && <ActivityForm setEditMode = {setEditMode} />}
+        {editMode && <ActivityForm setEditMode = {setEditMode} activity = {selectedActivity!} createActivity = {createActivity} editActivity = {editActivity}/>}
       </Grid.Column>
     </Grid>
   ); //?? is the null coalescing operator
