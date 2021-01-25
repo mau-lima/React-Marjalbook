@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
-import { idText } from "typescript";
 import { IActivity } from "../../../app/modules/activity";
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from "uuid";
 
 interface IProps {
   setEditMode: (editMode: boolean) => void;
@@ -39,10 +38,25 @@ export const ActivityForm = ({
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setActivity({
-      ...activity,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
+    if ((event.currentTarget.name = "date")) {
+      let newDate = activity.date.split('T')[0]+'T'+event.currentTarget.value;
+      
+      setActivity({
+        ...activity,
+        date: newDate,
+      });
+    } else if ((event.currentTarget.name = "time")) {
+      let newDate = event.currentTarget.value +'T'+ activity.date.split("T")[1];
+      setActivity({
+        ...activity,
+        date: newDate,
+      });
+    } else {
+      setActivity({
+        ...activity,
+        [event.currentTarget.name]: event.currentTarget.value,
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -80,7 +94,14 @@ export const ActivityForm = ({
           name="date"
           type="date"
           placeholder="Date"
-          value={activity.date}
+          value={activity.date.split("T")[0]}
+        />
+        <Form.Input
+          onChange={handleInputChange}
+          name="time"
+          type="time"
+          placeholder="Time"
+          value={activity.date.split("T")[1]}
         />
         <Form.Input
           onChange={handleInputChange}

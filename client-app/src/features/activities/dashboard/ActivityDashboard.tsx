@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, List } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { IActivity } from "../../../app/modules/activity";
 import { ActivityDetails } from "../details/ActivityDetails";
 import { ActivityForm } from "../form/ActivityForm";
@@ -13,7 +13,8 @@ interface IProps {
   setEditMode: (editMode: boolean) => void;
   setSelectedActivity: (activity: IActivity | null) => void;
   createActivity: (activity: IActivity) => void;
-  editActivity: (activity:IActivity) => void;
+  editActivity: (activity: IActivity) => void;
+  deleteActivity: (id: string) => void;
 }
 
 export const ActivityDashboard = ({
@@ -24,19 +25,33 @@ export const ActivityDashboard = ({
   setEditMode,
   setSelectedActivity,
   createActivity,
-  editActivity
+  editActivity,
+  deleteActivity
+
 }: IProps) => {
   // {activities} is equivalent to activities = props.activities. This is called de-structuring
   return (
     <Grid>
       <Grid.Column width={10}>
-        <ActivityList activities={activities} selectActivity={selectActivity} />
+        <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity = {deleteActivity}/>
       </Grid.Column>
       <Grid.Column width={6}>
         {selectedActivity && !editMode && (
-          <ActivityDetails activity={selectedActivity} setEditMode = {setEditMode} setSelectedActivity = {setSelectedActivity} />
+          <ActivityDetails
+            activity={selectedActivity}
+            setEditMode={setEditMode}
+            setSelectedActivity={setSelectedActivity}
+          />
         )}
-        {editMode && <ActivityForm setEditMode = {setEditMode} activity = {selectedActivity!} createActivity = {createActivity} editActivity = {editActivity}/>}
+        {editMode && (
+          <ActivityForm
+            key = {(selectedActivity && selectedActivity.id) || 0}
+            setEditMode={setEditMode}
+            activity={selectedActivity!}
+            createActivity={createActivity}
+            editActivity={editActivity}
+          />
+        )}
       </Grid.Column>
     </Grid>
   ); //?? is the null coalescing operator

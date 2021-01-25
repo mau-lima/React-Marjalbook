@@ -1,13 +1,18 @@
 import React from "react";
-import { Item, Image, Button, Label, Segment } from "semantic-ui-react";
+import { Item,  Button, Label, Segment } from "semantic-ui-react";
 import { IActivity } from "../../../app/modules/activity";
 
 interface IProps {
   activities: IActivity[];
   selectActivity: (id: string) => void;
+  deleteActivity: (id: string) => void;
 }
 
-export const ActivityList = ({ activities, selectActivity }: IProps) => {
+export const ActivityList = ({
+  activities,
+  selectActivity,
+  deleteActivity,
+}: IProps) => {
   return (
     //clearing makes it clear previous floats to prevent weird bevaiour. The segment also creates the nice white background
     <Segment clearing>
@@ -23,6 +28,14 @@ export const ActivityList = ({ activities, selectActivity }: IProps) => {
                 <div>{activity.venue}</div>
               </Item.Description>
               <Item.Extra>
+                <Button
+                  floated="right"
+                  content="Delete"
+                  color="red"
+                  onClick={() => {
+                    deleteActivity(activity.id);
+                  }}
+                />
                 <Button
                   floated="right"
                   content="View"

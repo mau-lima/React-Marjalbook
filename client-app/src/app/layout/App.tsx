@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import { Container} from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { IActivity } from "../modules/activity";
 import { Navbar } from "../../features/nav/navbar";
 import { ActivityDashboard } from "../../features/activities/dashboard/ActivityDashboard";
@@ -23,23 +23,34 @@ const App = () => {
   };
 
   const handleCreateActivity = (activity: IActivity) => {
-    setActivities([...activities,activity]);// this is an append
+    setActivities([...activities, activity]); // this is an append
     setSelectedActivity(activity);
     setEditMode(false);
-  }
+  };
 
-  const handleEditActivity = (editedActivity:IActivity) => {
-    let otherActivities = [...activities.filter(a => a.id !== editedActivity.id)];
-    setActivities([...otherActivities,editedActivity]);
+  const handleEditActivity = (editedActivity: IActivity) => {
+    let otherActivities = [
+      ...activities.filter((a) => a.id !== editedActivity.id),
+    ];
+    setActivities([...otherActivities, editedActivity]);
     setSelectedActivity(editedActivity);
     setEditMode(false);
+  };
+
+  const handleDeleteActivity = (id: string ) => {
+      setActivities([...activities.filter(a => a.id !==id)])
   }
 
   useEffect(() => {
     axios
       .get<IActivity[]>("http://localhost:5000/api/activities")
       .then((response) => {
-        setActivities(response.data);
+        let activities :IActivity[] = [];
+        response.data.forEach((activity) => {
+          activity.date = activity.date.split(".")[0];
+          activities.push(activity);
+        });
+        setActivities(activities);
       });
   }, []); //the [] argument prevents this from running over and over again
 
@@ -53,9 +64,10 @@ const App = () => {
           selectedActivity={selectedActivity}
           editMode={editMode}
           setEditMode={setEditMode}
-          setSelectedActivity = {setSelectedActivity}
-          createActivity = {handleCreateActivity}
-          editActivity = {handleEditActivity}
+          setSelectedActivity={setSelectedActivity}
+          createActivity={handleCreateActivity}
+          editActivity={handleEditActivity}
+          deleteActivity = {handleDeleteActivity}
         ></ActivityDashboard>
       </Container>
     </Fragment>
