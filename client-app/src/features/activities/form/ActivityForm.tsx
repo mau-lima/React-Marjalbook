@@ -8,6 +8,7 @@ interface IProps {
   activity: IActivity;
   createActivity: (activity: IActivity) => void;
   editActivity: (activity: IActivity) => void;
+  submitting: boolean;
 }
 
 export const ActivityForm = ({
@@ -15,6 +16,7 @@ export const ActivityForm = ({
   activity: initialActivity,
   createActivity,
   editActivity,
+  submitting
 }: IProps) => {
   const initializeForm = () => {
     if (initialActivity) {
@@ -38,25 +40,10 @@ export const ActivityForm = ({
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if ((event.currentTarget.name = "date")) {
-      let newDate = activity.date.split('T')[0]+'T'+event.currentTarget.value;
-      
-      setActivity({
-        ...activity,
-        date: newDate,
-      });
-    } else if ((event.currentTarget.name = "time")) {
-      let newDate = event.currentTarget.value +'T'+ activity.date.split("T")[1];
-      setActivity({
-        ...activity,
-        date: newDate,
-      });
-    } else {
       setActivity({
         ...activity,
         [event.currentTarget.name]: event.currentTarget.value,
       });
-    }
   };
 
   const handleSubmit = () => {
@@ -98,13 +85,6 @@ export const ActivityForm = ({
         />
         <Form.Input
           onChange={handleInputChange}
-          name="time"
-          type="time"
-          placeholder="Time"
-          value={activity.date.split("T")[1]}
-        />
-        <Form.Input
-          onChange={handleInputChange}
           name="city"
           placeholder="City"
           value={activity.city}
@@ -115,7 +95,7 @@ export const ActivityForm = ({
           placeholder="Venue"
           value={activity.venue}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button loading = {submitting} floated="right" positive type="submit" content="Submit" />
         <Button
           floated="right"
           type="button"
