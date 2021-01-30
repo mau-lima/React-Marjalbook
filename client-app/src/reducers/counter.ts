@@ -14,8 +14,6 @@ const counterReducer = (state = 0, action: IAction) => {
       return state - action.payload;
     }
     default: {
-      //ERROR
-      console.log("error en counterreducer!");
       return state;
     }
   }

@@ -40,9 +40,8 @@ const activitiesReducer = (state: IActivity[] = [], action: any) => {
             return allOtherActivities;
             //todo add a DELETE
         }
+        
         default:{
-            //ERROR
-            console.log('error en activitiesreducer!');
             return state;
         }
     }
