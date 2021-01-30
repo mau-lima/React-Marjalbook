@@ -5,6 +5,7 @@ import { Navbar } from "../../features/nav/navbar";
 import { ActivityDashboard } from "../../features/activities/dashboard/ActivityDashboard";
 import agent from "../api/agent";
 import { LoadingComponent } from "./LoadingComponent";
+import { CounterDashboard } from "../../features/counter/CounterDashboard";
 
 const App = () => {
   const [activities, setActivities] = useState<IActivity[]>([]); //activities = the state itself, and setActivities is the function that sets it
@@ -82,6 +83,8 @@ const App = () => {
     <Fragment>
       <Navbar openCreateForm={handleOpenCreateForm} />
       <Container style={{ marginTop: "7em" }}>
+
+        <CounterDashboard/>
         <ActivityDashboard
           activities={activities}
           selectActivity={handleSelectActivity}
