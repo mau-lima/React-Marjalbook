@@ -7,7 +7,7 @@ interface IAction {
   
   const selectedActivityReducer = (state = null, action: IAction) => {
     switch (action.type) {
-      case "SELECTACTIVITY": {
+      case "ACTIVITY_SELECT": {
         return action.payload;
       }
       default: {

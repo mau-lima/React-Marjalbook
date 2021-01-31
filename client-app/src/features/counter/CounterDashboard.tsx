@@ -10,8 +10,8 @@ export const CounterDashboard = () => {
   const dispatch = useDispatch();
 
   return (
-    <Segment>
-      <Card>
+    <Segment >
+      <Card fluid>
         <Card.Content>
           <Card.Header>Counter</Card.Header>
           <Card.Meta>

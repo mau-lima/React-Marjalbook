@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Item, Button, Label, Segment } from "semantic-ui-react";
 import { deleteActivity } from "../../../actions/activities/delete";
@@ -6,17 +6,10 @@ import { selectActivity } from "../../../actions/activities/select";
 import { IActivity } from "../../../app/modules/activity";
 import { IRootState } from "../../../app/modules/rootState";
 
-interface IProps {
-  submitting: boolean;
-  target: string
-}
 
-export const ActivityList = ({
-  submitting,
-  target
-}: IProps) => {
+export const ActivityList = () => {
   const activities = useSelector((state: IRootState) => state.activities);
-
+  const activityBeingDeleted = useSelector((state: IRootState) => state.activityBeingDeleted);
   const dispatcher = useDispatch();
 
   return (
@@ -35,14 +28,13 @@ export const ActivityList = ({
               </Item.Description>
               <Item.Extra>
                 <Button
-                  loading={target===activity.id && submitting}
+                  loading={activityBeingDeleted===activity.id}
                   name={activity.id}
                   floated="right"
                   content="Delete"
                   color="red"
-                  onClick={(event) => {
+                  onClick={() => {
                     dispatcher(deleteActivity(activity.id));
-                    // deleteActivity(event,activity.id);
                   }}
                 />
                 <Button

@@ -6,4 +6,6 @@ export interface IRootState{
     selectedActivity: IActivity | null;
     editMode: boolean;
     loading: boolean;
+    submitting: boolean;
+    activityBeingDeleted: string;
 }

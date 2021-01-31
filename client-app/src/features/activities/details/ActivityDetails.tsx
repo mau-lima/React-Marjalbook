@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Card, Image } from "semantic-ui-react";
 import { selectActivity } from "../../../actions/activities/select";
 import { setEditMode } from "../../../actions/editMode/set";
-import { IActivity } from "../../../app/modules/activity";
 import { IRootState } from "../../../app/modules/rootState";
 
 export const ActivityDetails = () => {

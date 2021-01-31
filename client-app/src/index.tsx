@@ -4,14 +4,17 @@ import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
-import { compose, createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers/index";
 import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from 'redux-thunk';
+
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
 
 const store = createStore(
-  rootReducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__() //this is just for the redux debug extension
+  rootReducer, 
+  composedEnhancer
 );
 
 ReactDOM.render(

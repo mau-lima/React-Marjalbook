@@ -8,16 +8,12 @@ import { updateActivity } from "../../../actions/activities/update";
 import { IRootState } from "../../../app/modules/rootState";
 import { setEditMode } from "../../../actions/editMode/set";
 
-interface IProps {
-  submitting: boolean;
-}
-
-export const ActivityForm = ({
-  submitting
-}: IProps) => {
+export const ActivityForm = () => {
 
   const dispatcher = useDispatch();
-  const initialActivity = useSelector((state:IRootState) => state.selectedActivity)
+  const initialActivity = useSelector((state:IRootState) => state.selectedActivity);
+  const submitting = useSelector ((state: IRootState) => state.submitting);
+
 
   const initializeForm = () => {
     if (initialActivity) {
@@ -48,7 +44,6 @@ export const ActivityForm = ({
   };
 
   const handleSubmit = () => {
-    console.log(activity);
     if (activity.id.length === 0) {
       let activityWithGuid: IActivity = { ...activity, id: uuid() };
       dispatcher(createActivity(activityWithGuid));
@@ -96,7 +91,7 @@ export const ActivityForm = ({
           placeholder="Venue"
           value={activity.venue}
         />
-        <Button loading = {submitting} floated="right" positive type="submit" content="Submit" />
+        <Button loading = {submitting} floated="right" positive type="submit" content="Submit"/>
         <Button
           floated="right"
           type="button"

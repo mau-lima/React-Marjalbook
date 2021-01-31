@@ -24,8 +24,6 @@ export const Navbar = () => {
                   dispatcher(setEditMode(true));
                 }} positive content='Create Activity' />
             </Menu.Item>
-        <Menu.Item name="messages" />
-        <Menu.Item name="friends" />
       </Container>
     </Menu>
   );

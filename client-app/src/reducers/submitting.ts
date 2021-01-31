@@ -3,9 +3,9 @@ interface IAction {
     payload: boolean;
   }
   
-  const editModeReducer = (state = false, action: IAction) => {
+  const submittingReducer = (state = false, action: IAction) => {
     switch (action.type) {
-      case "SET_EDITMODE": {
+      case "SET_SUBMITTING": {
         return action.payload;
       }
       default: {
@@ -14,5 +14,5 @@ interface IAction {
     }
   };
   
-  export default editModeReducer;
+  export default submittingReducer;
   

@@ -2,7 +2,7 @@
 
 export const setLoading = (val: boolean) =>{
     return {
-        type: 'SETLOADING',
+        type: 'SET_LOADING',
         payload: val
     };
 };

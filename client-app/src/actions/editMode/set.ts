@@ -1,7 +1,7 @@
 
 export const setEditMode = (val: boolean) =>{
     return {
-        type: 'SETEDITMODE',
+        type: 'SET_EDITMODE',
         payload: val
     };
 };

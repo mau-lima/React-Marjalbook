@@ -5,7 +5,7 @@ interface IAction {
   
   const loadingReducer = (state = true, action: IAction) => {
     switch (action.type) {
-      case "SETLOADING": {
+      case "SET_LOADING": {
         return action.payload;
       }
       default: {
