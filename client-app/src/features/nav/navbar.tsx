@@ -1,12 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Button, Container, Menu } from "semantic-ui-react";
+import { selectActivity } from "../../actions/activities/select";
+import { setEditMode } from "../../actions/editMode/set";
 
-interface IProps{
-  openCreateForm: () => void;
-}
 
-export const Navbar = ({openCreateForm} :IProps) => {
+export const Navbar = () => {
+  const dispatcher = useDispatch();
+
   return (
+
+
     <Menu fixed="top" inverted>
       <Container>
           <Menu.Item header>
@@ -15,10 +19,11 @@ export const Navbar = ({openCreateForm} :IProps) => {
           </Menu.Item>
           <Menu.Item name='Activities'/>
             <Menu.Item>
-                <Button onClick = {openCreateForm}positive content='Create Activity' />
+                <Button onClick = {() => {
+                  dispatcher(selectActivity(null));
+                  dispatcher(setEditMode(true));
+                }} positive content='Create Activity' />
             </Menu.Item>
-        <Menu.Item name="messages" />
-        <Menu.Item name="friends" />
       </Container>
     </Menu>
   );

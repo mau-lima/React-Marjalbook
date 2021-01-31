@@ -1,18 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Card, Image } from "semantic-ui-react";
-import { IActivity } from "../../../app/modules/activity";
+import { selectActivity } from "../../../actions/activities/select";
+import { setEditMode } from "../../../actions/editMode/set";
+import { IRootState } from "../../../app/modules/rootState";
 
-interface IProps{
-  activity:IActivity;
-  setEditMode: (editMode:boolean) => void;
-  setSelectedActivity: (activity:IActivity | null) => void;
-}
+export const ActivityDetails = () => {
+  const activity = useSelector((state: IRootState) => state.selectedActivity)!;
+  const dispatcher = useDispatch();
 
-export const ActivityDetails = ({activity,setEditMode,setSelectedActivity} :IProps) => {
   return (
     //fluid means it takes as much space as it can
     <Card fluid>
-      <Image src={`/assets/categoryImages/${activity.category}.jpg`} wrapped ui={false} />
+      <Image
+        src={`/assets/categoryImages/${activity.category}.jpg`}
+        wrapped
+        ui={false}
+      />
       <Card.Content>
         <Card.Header>{activity.title}</Card.Header>
         <Card.Meta>
@@ -22,8 +26,19 @@ export const ActivityDetails = ({activity,setEditMode,setSelectedActivity} :IPro
       </Card.Content>
       <Card.Content extra>
         <Button.Group widths={2}>
-            <Button basic color ='blue' content= 'Edit' onClick= {() => setEditMode(true)}/>
-            <Button basic color ='grey' content= 'Cancel' onClick= {()=> setSelectedActivity(null)}/>
+          <Button
+            basic
+            color="blue"
+            content="Edit"
+            onClick={() => 
+              dispatcher(setEditMode(true))}
+          />
+          <Button
+            basic
+            color="grey"
+            content="Cancel"
+            onClick={() => dispatcher(selectActivity(null))}
+          />
         </Button.Group>
       </Card.Content>
     </Card>

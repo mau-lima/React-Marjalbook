@@ -1,22 +1,17 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Item, Button, Label, Segment } from "semantic-ui-react";
+import { deleteActivity } from "../../../actions/activities/delete";
+import { selectActivity } from "../../../actions/activities/select";
 import { IActivity } from "../../../app/modules/activity";
+import { IRootState } from "../../../app/modules/rootState";
 
-interface IProps {
-  activities: IActivity[];
-  selectActivity: (id: string) => void;
-  deleteActivity: (event: SyntheticEvent<HTMLButtonElement>,id: string) => void;
-  submitting: boolean;
-  target: string
-}
 
-export const ActivityList = ({
-  activities,
-  selectActivity,
-  deleteActivity,
-  submitting,
-  target
-}: IProps) => {
+export const ActivityList = () => {
+  const activities = useSelector((state: IRootState) => state.activities);
+  const activityBeingDeleted = useSelector((state: IRootState) => state.activityBeingDeleted);
+  const dispatcher = useDispatch();
+
   return (
     //clearing makes it clear previous floats to prevent weird bevaiour. The segment also creates the nice white background
     <Segment clearing>
@@ -33,13 +28,13 @@ export const ActivityList = ({
               </Item.Description>
               <Item.Extra>
                 <Button
-                  loading={target===activity.id && submitting}
+                  loading={activityBeingDeleted===activity.id}
                   name={activity.id}
                   floated="right"
                   content="Delete"
                   color="red"
-                  onClick={(event) => {
-                    deleteActivity(event,activity.id);
+                  onClick={() => {
+                    dispatcher(deleteActivity(activity.id));
                   }}
                 />
                 <Button
@@ -47,7 +42,7 @@ export const ActivityList = ({
                   content="View"
                   color="blue"
                   onClick={() => {
-                    selectActivity(activity.id);
+                    dispatcher(selectActivity(activity));
                   }}
                 />
                 <Label basic content={activity.category} />

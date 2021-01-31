@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { IActivity } from "../../../app/modules/activity";
 import { v4 as uuid } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { createActivity } from "../../../actions/activities/create";
+import { updateActivity } from "../../../actions/activities/update";
+import { IRootState } from "../../../app/modules/rootState";
+import { setEditMode } from "../../../actions/editMode/set";
 
-interface IProps {
-  setEditMode: (editMode: boolean) => void;
-  activity: IActivity;
-  createActivity: (activity: IActivity) => void;
-  editActivity: (activity: IActivity) => void;
-  submitting: boolean;
-}
+export const ActivityForm = () => {
 
-export const ActivityForm = ({
-  setEditMode,
-  activity: initialActivity,
-  createActivity,
-  editActivity,
-  submitting
-}: IProps) => {
+  const dispatcher = useDispatch();
+  const initialActivity = useSelector((state:IRootState) => state.selectedActivity);
+  const submitting = useSelector ((state: IRootState) => state.submitting);
+
+
   const initializeForm = () => {
     if (initialActivity) {
       return initialActivity;
@@ -47,11 +44,10 @@ export const ActivityForm = ({
   };
 
   const handleSubmit = () => {
-    console.log(activity);
     if (activity.id.length === 0) {
       let activityWithGuid: IActivity = { ...activity, id: uuid() };
-      createActivity(activityWithGuid);
-    } else editActivity(activity);
+      dispatcher(createActivity(activityWithGuid));
+    } else dispatcher(updateActivity(activity));
   };
 
   return (
@@ -95,13 +91,13 @@ export const ActivityForm = ({
           placeholder="Venue"
           value={activity.venue}
         />
-        <Button loading = {submitting} floated="right" positive type="submit" content="Submit" />
+        <Button loading = {submitting} floated="right" positive type="submit" content="Submit"/>
         <Button
           floated="right"
           type="button"
           content="Cancel"
           onClick={() => {
-            setEditMode(false);
+            dispatcher(setEditMode(false));
           }}
         />
       </Form>
