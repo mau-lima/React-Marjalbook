@@ -3,7 +3,7 @@ interface IAction {
     payload: boolean;
   }
   
-  const loadingReducer = (state = true, action: IAction) => {
+  const loadingReducer = (state = false, action: IAction) => {
     switch (action.type) {
       case "SET_LOADING": {
         return action.payload;

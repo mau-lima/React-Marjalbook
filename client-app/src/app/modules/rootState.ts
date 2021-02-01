@@ -4,7 +4,7 @@ export interface IRootState{
     counter: number;
     activities: IActivity[];
     selectedActivity: IActivity | null;
-    editMode: boolean;
+    // editMode: boolean;
     loading: boolean;
     submitting: boolean;
     activityBeingDeleted: string;

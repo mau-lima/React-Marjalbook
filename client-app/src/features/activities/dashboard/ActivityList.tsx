@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Item, Button, Label, Segment } from "semantic-ui-react";
 import { deleteActivity } from "../../../actions/activities/delete";
-import { selectActivity } from "../../../actions/activities/select";
 import { IActivity } from "../../../app/modules/activity";
 import { IRootState } from "../../../app/modules/rootState";
 
@@ -41,9 +41,7 @@ export const ActivityList = () => {
                   floated="right"
                   content="View"
                   color="blue"
-                  onClick={() => {
-                    dispatcher(selectActivity(activity));
-                  }}
+                  as={Link} to={`/activities/${activity.id}`}
                 />
                 <Label basic content={activity.category} />
               </Item.Extra>

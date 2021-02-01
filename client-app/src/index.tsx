@@ -4,24 +4,28 @@ import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
-import { applyMiddleware, createStore } from "redux";
+import { Action, applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers/index";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunkMiddleware from 'redux-thunk';
+import thunkMiddleware, { ThunkDispatch } from "redux-thunk";
+import { BrowserRouter } from "react-router-dom";
+import { IRootState } from "./app/modules/rootState";
+import ScrollToTop from "./app/layout/ScrollToTop";
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
-const store = createStore(
-  rootReducer, 
-  composedEnhancer
-);
+const store = createStore(rootReducer, composedEnhancer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+    <ScrollToTop>
+      <Provider store={store}>
+          <App />
+      </Provider>
+      </ScrollToTop>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
@@ -30,3 +34,8 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+export type ReduxDispatch = ThunkDispatch<IRootState, any, Action>;
+export function useThunkDispatch(): ReduxDispatch {
+  return useDispatch<ReduxDispatch>();
+}
