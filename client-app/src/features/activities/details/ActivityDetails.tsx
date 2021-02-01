@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Button, Card, Image } from "semantic-ui-react";
 import { selectActivity } from "../../../actions/activities/select";
-import { setEditMode } from "../../../actions/editMode/set";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { IRootState } from "../../../app/modules/rootState";
 
@@ -50,7 +49,6 @@ export const ActivityDetails = ({
               basic
               color="blue"
               content="Edit"
-              onClick={() => dispatcher(setEditMode(true))}
             />
             <Button
               basic

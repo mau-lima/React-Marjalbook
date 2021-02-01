@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { IActivity } from "../../../app/modules/activity";
 import { v4 as uuid } from "uuid";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { createActivity } from "../../../actions/activities/create";
 import { updateActivity } from "../../../actions/activities/update";
 import { IRootState } from "../../../app/modules/rootState";
-import { setEditMode } from "../../../actions/editMode/set";
 import { RouteComponentProps } from "react-router-dom";
 import { selectActivity } from "../../../actions/activities/select";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
@@ -23,8 +22,10 @@ export const ActivityForm = ({
   const dispatch = useThunkDispatch();
 
   const loading = useSelector((state: IRootState) => state.loading);
-  const selectedActivity = useSelector(    (state: IRootState) => state.selectedActivity  );
-  const submitting = useSelector((state: IRootState) => state.submitting);
+  const selectedActivity = useSelector(
+    (state: IRootState) => state.selectedActivity
+  );
+  const [submitting,setSubmitting ]= useState(false);
 
   useEffect(() => {
     if (match.params.id) {
@@ -36,17 +37,9 @@ export const ActivityForm = ({
       //cleanup function f
       dispatch(selectActivity(null));
     };
-  }, [selectedActivity,dispatch,match.params.id]); //todo rechck ths and select.ts w/video 104 minute 6/9
+  }, [selectedActivity, dispatch, match.params.id]); //todo rechck ths and select.ts w/video 104 minute 6/9
 
-  const [activity, setActivity] = useState<IActivity>({
-    id: "",
-    category: "",
-    title: "",
-    description: "",
-    date: "",
-    city: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<IActivity>({    id: "",    category: "",    title: "",    description: "",    date: "",    city: "",    venue: "",  });
 
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,19 +51,20 @@ export const ActivityForm = ({
   };
 
   const handleSubmit = () => {
+    setSubmitting(true);
     if (activity.id.length === 0) {
       let activityWithGuid: IActivity = { ...activity, id: uuid() };
       dispatch(createActivity(activityWithGuid)).then(() => {
-        console.log(" la la la la la la la");
         history.push(`/activities/${activityWithGuid.id}`);
+        setSubmitting(false);
       });
-      
     } else {
-      dispatch(updateActivity(activity)).then(()=>{
+      dispatch(updateActivity(activity)).then(() => {
         history.push(`/activities/${activity.id}`);
+        setSubmitting(false);
       });
-      
     }
+    
   };
 
   if (loading) return <LoadingComponent content="Loading activity..." />;
@@ -128,7 +122,8 @@ export const ActivityForm = ({
             type="button"
             content="Cancel"
             onClick={() => {
-              dispatch(setEditMode(false));
+              if (activity) history.push(`/activities/${activity.id}`);
+              else history.push(`/activities`);
             }}
           />
         </Form>
