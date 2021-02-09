@@ -26,9 +26,7 @@ export const ActivityDetails = ({
   const activityId = match.params.id;
 
   useEffect(() => {
-    dispatcher(selectActivity(activityId)).catch(() => {
-        history.push('/notfound');
-    });
+    dispatcher(selectActivity(activityId));
   }, [dispatcher, activityId,history]); //the [] argument prevents this from running over and over again
 
   if (loading) return <LoadingComponent content="Loading activity..." />;

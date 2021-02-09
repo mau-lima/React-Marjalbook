@@ -7,27 +7,21 @@ export const selectActivity = (activityUUID: string | null) => async (
   dispatch: Dispatch,
   getState: () => IRootState
 ) => {
+  let activity = null;
   if (activityUUID) {
     const state = getState();
-    if (state.selectedActivity && state.selectedActivity.id === activityUUID)
-      //anti-double-fetch
-      return;
-
-    let activity = state.activities.find((act) => act.id === activityUUID); //do we already have it?
+    activity = state.activities.find((act) => act.id === activityUUID); //do we already have it?
     if (!activity) {
       //if not, get it
       dispatch(setLoading(true));
       try {
         activity = await Activities.details(activityUUID);
-        dispatch({ type: "ACTIVITY_SELECTED", payload: activity });
       } catch (error) {
-        console.log(error);
-        dispatch({ type: "ACTIVITY_SELECTED", payload: null });
-        throw error;
+        activity = null;
       }
     }
     dispatch(setLoading(false));
-  } else {
-    dispatch({ type: "ACTIVITY_SELECTED", payload: null });
   }
+
+  dispatch({ type: "ACTIVITY_SELECTED", payload: activity });
 };

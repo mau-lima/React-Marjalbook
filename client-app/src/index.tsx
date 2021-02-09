@@ -3,15 +3,19 @@ import ReactDOM from "react-dom";
 import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
+import 'react-toastify/dist/ReactToastify.min.css';
 import "semantic-ui-css/semantic.min.css";
 import { Action, applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers/index";
 import { Provider, useDispatch } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware, { ThunkDispatch } from "redux-thunk";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import {createBrowserHistory} from 'history';
 import { IRootState } from "./app/modules/rootState";
 import ScrollToTop from "./app/layout/ScrollToTop";
+
+export const history = createBrowserHistory();
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -19,13 +23,13 @@ const store = createStore(rootReducer, composedEnhancer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Router history = {history}>
     <ScrollToTop>
       <Provider store={store}>
           <App />
       </Provider>
       </ScrollToTop>
-    </BrowserRouter>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
