@@ -1,5 +1,7 @@
 using System;
+using Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,8 +20,9 @@ namespace API
                 var services = scope.ServiceProvider;
                 try{
                     var context = services.GetRequiredService<DataContext>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     context.Database.Migrate();//aca lo que estoy haciendo es automatizar las migraciones para que se apliquen hasta la ultima cada vez que se ejecuta la solucion. De otro modo habria que hacerlo desde la CLI
-                    Seed.SeedData(context);
+                    Seed.SeedData(context,userManager).Wait();
                 }
                 catch(Exception ex){
                     var logger = services.GetRequiredService<ILogger<Program>>();
