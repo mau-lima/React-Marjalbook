@@ -5,6 +5,7 @@ import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import 'react-toastify/dist/ReactToastify.min.css';
 import "semantic-ui-css/semantic.min.css";
+import 'react-widgets/dist/css/react-widgets.css';
 import { Action, applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers/index";
 import { Provider, useDispatch } from "react-redux";
@@ -14,6 +15,9 @@ import { Router } from "react-router-dom";
 import {createBrowserHistory} from 'history';
 import { IRootState } from "./app/modules/rootState";
 import ScrollToTop from "./app/layout/ScrollToTop";
+import dateFnsLocalizer from 'react-widgets-date-fns';
+
+dateFnsLocalizer();
 
 export const history = createBrowserHistory();
 

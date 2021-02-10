@@ -7,21 +7,23 @@ export const selectActivity = (activityUUID: string | null) => async (
   dispatch: Dispatch,
   getState: () => IRootState
 ) => {
+  const state = getState();
+
+
   let activity = null;
   if (activityUUID) {
-    const state = getState();
+    
     activity = state.activities.find((act) => act.id === activityUUID); //do we already have it?
     if (!activity) {
       //if not, get it
       dispatch(setLoading(true));
-      try {
-        activity = await Activities.details(activityUUID);
-      } catch (error) {
-        activity = null;
-      }
+      activity = await Activities.details(activityUUID);
+      activity.date = new Date(activity.date);
+      dispatch(setLoading(false));
+      
     }
-    dispatch(setLoading(false));
   }
-
+  console.log(activity);
   dispatch({ type: "ACTIVITY_SELECTED", payload: activity });
+  return Promise.resolve(activity);
 };
