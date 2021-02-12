@@ -5,7 +5,7 @@ import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { selectActivity } from "../../../actions/activities/select";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
-import { IRootState } from "../../../app/modules/rootState";
+import { IRootState } from "../../../app/models/rootState";
 import { ActivityDetailedChat } from "./ActivityDetailedChat";
 import { ActivityDetailedHeader } from "./ActivityDetailedHeader";
 import { ActivityDetailedInfo } from "./ActivityDetailedInfo";

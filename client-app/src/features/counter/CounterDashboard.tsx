@@ -3,7 +3,7 @@ import { Button, Card, Segment } from "semantic-ui-react";
 import { increment } from "../../actions/counter/increment";
 import { decrement } from "../../actions/counter/decrement";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../app/modules/rootState";
+import { IRootState } from "../../app/models/rootState";
 
 export const CounterDashboard = () => {
   const counter = useSelector((state: IRootState) => state.counter);

@@ -1,7 +1,13 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
-import { Button, Container, Menu } from "semantic-ui-react";
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import { Button, Container, Dropdown, Menu , Image} from "semantic-ui-react";
+import { useThunkDispatch } from "../..";
+import { logoutUser } from "../../actions/user/logout";
+import { IRootState } from "../../app/models/rootState";
 export const Navbar = () => {
+  const user = useSelector((state: IRootState) => state.user);
+  const dispatcher = useThunkDispatch();
   return (
     <Menu fixed="top" inverted>
       <Container>
@@ -22,6 +28,22 @@ export const Navbar = () => {
             content="Create Activity"
           />
         </Menu.Item>
+        {user && (
+          <Menu.Item position="right">
+            <Image avatar spaced="right" src={user.image || "/assets/user.png"} />
+            <Dropdown pointing="top left" text={user.displayName}>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  as={Link}
+                  to={`/profile/username`}
+                  text="My profile"
+                  icon="user"
+                />
+                <Dropdown.Item  text="Logout" icon="power" onClick={() =>dispatcher(logoutUser())}/>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu.Item>
+        )}
       </Container>
     </Menu>
   );

@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import React from "react";
 import { Segment, Grid, Icon } from "semantic-ui-react";
-import { IActivity } from "../../../app/modules/activity";
+import { IActivity } from "../../../app/models/activity";
 
 interface IProps{
     activity:IActivity;

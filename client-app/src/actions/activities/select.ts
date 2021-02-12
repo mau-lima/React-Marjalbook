@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
-import Activities from "../../app/api/agent";
-import { IRootState } from "../../app/modules/rootState";
+import  Agent  from "../../app/api/agent";
+import { IRootState } from "../../app/models/rootState";
 import { setLoading } from "../loading/set";
 
 export const selectActivity = (activityUUID: string | null) => async (
@@ -17,7 +17,7 @@ export const selectActivity = (activityUUID: string | null) => async (
     if (!activity) {
       //if not, get it
       dispatch(setLoading(true));
-      activity = await Activities.details(activityUUID);
+      activity = await Agent.Activities.details(activityUUID);
       activity.date = new Date(activity.date);
       dispatch(setLoading(false));
       

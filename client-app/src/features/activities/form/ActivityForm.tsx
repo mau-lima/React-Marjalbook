@@ -3,12 +3,12 @@ import { Button, Form,  Grid, Segment } from "semantic-ui-react";
 import {
   ActivityFormValues,
   IActivity,
-} from "../../../app/modules/activity";
+} from "../../../app/models/activity";
 import { v4 as uuid } from "uuid";
 import { useSelector } from "react-redux";
 import { createActivity } from "../../../actions/activities/create";
 import { updateActivity } from "../../../actions/activities/update";
-import { IRootState } from "../../../app/modules/rootState";
+import { IRootState } from "../../../app/models/rootState";
 import { RouteComponentProps } from "react-router-dom";
 import { selectActivity } from "../../../actions/activities/select";
 import { useThunkDispatch } from "../../..";

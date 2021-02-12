@@ -1,8 +1,9 @@
+import { format } from "date-fns";
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Item, Label } from "semantic-ui-react";
-import { IActivity } from "../../../app/modules/activity";
-import { IRootState } from "../../../app/modules/rootState";
+import { IActivity } from "../../../app/models/activity";
+import { IRootState } from "../../../app/models/rootState";
 import { ActivityListItem } from "./ActivityListItem";
 
 export const ActivityList = () => {
@@ -12,7 +13,7 @@ export const ActivityList = () => {
       {groupActivitiesByDate(activities).map(([dateGroup, activitiesOnThatDate]) => (
         <Fragment key={dateGroup}>
           <Label size="large" color="blue">
-            {dateGroup}
+            {format(dateGroup,'eeee do MMMM yyyy')}
           </Label>
             <Item.Group divided>
               {activitiesOnThatDate.map((activity: IActivity) => (

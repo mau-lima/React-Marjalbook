@@ -1,4 +1,4 @@
-import {IActivity} from "../app/modules/activity";
+import {IActivity} from "../app/models/activity";
 
 const activitiesReducer = (state: IActivity[] = [], action: any) => {
     switch(action.type){

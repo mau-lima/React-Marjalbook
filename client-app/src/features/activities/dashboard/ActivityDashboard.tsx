@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
 import { fetchActivities } from "../../../actions/activities/fetch";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
-import { IRootState } from "../../../app/modules/rootState";
+import { IRootState } from "../../../app/models/rootState";
 import { CounterDashboard } from "../../counter/CounterDashboard";
 import { ActivityList } from "./ActivityList";
 

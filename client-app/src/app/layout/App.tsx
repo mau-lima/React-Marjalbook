@@ -1,18 +1,42 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Container } from "semantic-ui-react";
 import { Navbar } from "../../features/nav/navbar";
 import { ActivityDashboard } from "../../features/activities/dashboard/ActivityDashboard";
-import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from "react-router-dom";
 import { ActivityForm } from "../../features/activities/form/ActivityForm";
 import { HomePage } from "../../features/home/HomePage";
 import { ActivityDetails } from "../../features/activities/details/ActivityDetails";
 import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
+import { LoginForm } from "../../features/user/LoginForm";
+import { IRootState } from "../models/rootState";
+import { useSelector } from "react-redux";
+import { useThunkDispatch } from "../..";
+import { getUser } from "../../actions/user/get";
+import { setLoading } from "../../actions/loading/set";
+import { ModalContainer } from "../common/modals/ModalContainer";
 
 const App = ({ location }: RouteComponentProps) => {
+  const token = useSelector((state: IRootState) => state.token);
+  const dispatch = useThunkDispatch();
+  const user = useSelector((state:IRootState) => state.user)
+
+  useEffect(() => {
+    if (token && !user) {
+      dispatch(setLoading(true));
+      dispatch(getUser()).then(() => dispatch(setLoading(false)));
+    }
+  }, [dispatch,token,user]);
+
   return (
     <Fragment>
-      <ToastContainer position = 'bottom-right'/>
+      <ModalContainer/>
+      <ToastContainer position="bottom-right" />
       <Route exact path="/" component={HomePage} />
       <Route
         path={"/(.+)"}
@@ -20,7 +44,7 @@ const App = ({ location }: RouteComponentProps) => {
           <Fragment>
             <Navbar />
             <Container style={{ marginTop: "7em" }}>
-              <Switch> 
+              <Switch>
                 <Route exact path="/activities" component={ActivityDashboard} />
                 <Route path="/activities/:id" component={ActivityDetails} />
                 <Route
@@ -28,6 +52,7 @@ const App = ({ location }: RouteComponentProps) => {
                   path={["/createActivity", "/updateActivity/:id"]}
                   component={ActivityForm}
                 />
+                <Route path="/login" component={LoginForm} />
                 <Route component={NotFound} />
               </Switch>
             </Container>

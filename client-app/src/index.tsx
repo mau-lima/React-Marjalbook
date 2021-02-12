@@ -13,7 +13,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware, { ThunkDispatch } from "redux-thunk";
 import { Router } from "react-router-dom";
 import {createBrowserHistory} from 'history';
-import { IRootState } from "./app/modules/rootState";
+import { IRootState } from "./app/models/rootState";
 import ScrollToTop from "./app/layout/ScrollToTop";
 import dateFnsLocalizer from 'react-widgets-date-fns';
 

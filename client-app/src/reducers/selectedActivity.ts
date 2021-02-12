@@ -1,4 +1,4 @@
-import { IActivity } from "../app/modules/activity";
+import { IActivity } from "../app/models/activity";
 
 interface IAction {
     type: string;
