@@ -2,6 +2,7 @@ using System.Text;
 using API.Middleware;
 using Application.Activities;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation.AspNetCore;
 using Infrastructure;
@@ -37,6 +38,7 @@ namespace API
             //this is where services are dependency injected
             services.AddDbContext<DataContext>(opt =>
             {
+                opt.UseLazyLoadingProxies();
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddCors(opt =>
@@ -47,13 +49,14 @@ namespace API
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddAutoMapper(typeof(List.Handler));
             services.AddControllers( opt => {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
             })
             .AddFluentValidation(cfg =>
             {
-                cfg.RegisterValidatorsFromAssemblyContaining<Create>();//checks the whole application project, not just the create class
+                cfg.RegisterValidatorsFromAssemblyContaining<Attend>();//checks the whole application project, not just the create class
             });
 
             var builder = services.AddIdentityCore<AppUser>();

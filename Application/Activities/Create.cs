@@ -1,9 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Interfaces;
 using Domain;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Activities
@@ -38,8 +40,10 @@ namespace Application.Activities
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
+                this._userAccessor = userAccessor;
                 this._context = context;
             }
 
@@ -56,6 +60,18 @@ namespace Application.Activities
                     Venue = request.Venue
                 };
                 _context.Activities.Add(activity); //the addAsync SHOuld NOT beused, it seems. microsoft docs says so because this isn't a special value generator.
+                
+                var creatorUser = await _context.Users.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
+
+                var attendeeRelationship = new UserActivity{
+                    AppUser = creatorUser,
+                    Activity = activity,
+                    isHost = true,
+                    DateJoined = DateTime.Now
+                };
+                
+                _context.UserActivities.Add(attendeeRelationship);
+
                 var success = await _context.SaveChangesAsync(); //this holds the amount of changes made to the DB (should be 1 if successful)
 
                 if (success > 0)
