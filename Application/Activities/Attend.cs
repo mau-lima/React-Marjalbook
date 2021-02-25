@@ -57,7 +57,7 @@ namespace Application.Activities
                 attendance = new Domain.UserActivity{
                     Activity = activity,
                     AppUser = user,
-                    isHost = false,
+                    IsHost = false,
                     DateJoined = DateTime.Now
                 };
 

@@ -66,7 +66,7 @@ namespace Application.Activities
                 var attendeeRelationship = new UserActivity{
                     AppUser = creatorUser,
                     Activity = activity,
-                    isHost = true,
+                    IsHost = true,
                     DateJoined = DateTime.Now
                 };
                 

@@ -11,6 +11,6 @@ namespace Domain
         public virtual Activity Activity { get; set; }
         public DateTime DateJoined { get; set; }
 
-        public bool isHost{get;set;}
+        public bool IsHost{get;set;}
     }
 }

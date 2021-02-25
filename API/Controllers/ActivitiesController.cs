@@ -18,7 +18,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<ActivityDto>> Details(Guid id){
             return await Mediator.Send(new Details.Query{Id = id}); //curly brace constructor
         }
@@ -29,12 +28,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "IsActivityHost")]
         public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command){
             command.Id = id;
             return await Mediator.Send(command);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "IsActivityHost")] //only activity hosts can delete or modify the act.
         public async Task<ActionResult<Unit>> Delete(Guid id){
             return await Mediator.Send(new Delete.Command {Id = id});
         }
