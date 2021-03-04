@@ -10,12 +10,12 @@ export const loginUser = (values: IUserFormValues) => async (
   dispatch: ReduxDispatch,
   getState: () => IRootState
 ) => {
-  
   const user = await agent.User.login(values);
   dispatch(updateToken(user.token));
-  
-  dispatch({ type: "USER_UPDATED", payload: user });
   dispatch(closeModal());
+  dispatch({ type: "USER_UPDATED", payload: user });
+
+  
   history.push("/activities");
 
   // return Promise.resolve(user);

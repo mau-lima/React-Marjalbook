@@ -20,6 +20,7 @@ import { category } from "../../../app/common/options/categoryOptions";
 import { DateInput } from "../../../app/common/form/DateInput";
 import { combineDateAndTime } from "../../../app/common/util/util";
 import { combineValidators, composeValidators, hasLengthGreaterThan, isRequired } from "revalidate";
+import { setLoading } from "../../../actions/loading/set";
 
 const validate = combineValidators({
   title: isRequired({message: 'The title is required'}),
@@ -51,8 +52,10 @@ export const ActivityForm = ({
 
   useEffect(() => {
     if (match.params.id) {
+      dispatch(setLoading(true));
       dispatch(selectActivity(match.params.id)).then((activity) => {
         setActivity(new ActivityFormValues(activity));
+        dispatch(setLoading(false));
       });
     }
   }, [dispatch, match.params.id]); //todo rechck ths and select.ts w/video 104 minute 6/9

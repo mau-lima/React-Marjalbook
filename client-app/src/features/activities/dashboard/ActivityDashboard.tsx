@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
+import { useThunkDispatch } from "../../..";
 import { fetchActivities } from "../../../actions/activities/fetch";
+import { setLoading } from "../../../actions/loading/set";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { IRootState } from "../../../app/models/rootState";
 import { CounterDashboard } from "../../counter/CounterDashboard";
 import { ActivityList } from "./ActivityList";
 
 export const ActivityDashboard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useThunkDispatch();
   const loading = useSelector((state: IRootState) => state.loading);
 
   useEffect(() => {
-    dispatch(fetchActivities());
+    dispatch(setLoading(true));
+    dispatch(fetchActivities()).then(() => dispatch(setLoading(false)));
   }, [dispatch]); //the [] argument prevents this from running over and over again
 
   if (loading) return <LoadingComponent content="Loading activities..." />;

@@ -1,17 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useThunkDispatch } from "../..";
+import { setLoading } from "../../actions/loading/set";
 import { openModal } from "../../actions/modal/open";
+import { getUser } from "../../actions/user/get";
+import { LoadingComponent } from "../../app/layout/LoadingComponent";
 import { IRootState } from "../../app/models/rootState";
 import { LoginForm } from "../user/LoginForm";
 import { RegisterForm } from "../user/RegisterForm";
 
 export const HomePage = () => {
   const user = useSelector((state: IRootState) => state.user);
+  const loading = useSelector((state: IRootState) => state.loading);
   const dispatch = useThunkDispatch();
   const isLoggedIn = !!user;
+
+  const token = useSelector((state: IRootState) => state.token);
+
+  useEffect(() => {
+    if (token && !user) {
+      dispatch(setLoading(true));
+      dispatch(getUser()).then(() => {
+        dispatch(setLoading(false));
+      });
+    }
+  }, [dispatch, token, user]);
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
       <Container text>
@@ -24,7 +39,7 @@ export const HomePage = () => {
           />
           Reactivities
         </Header>
-        {isLoggedIn && user ? (
+        {loading?<LoadingComponent content="Loading..."/>:(isLoggedIn && user) ? (
           <Fragment>
             <Header
               as="h2"

@@ -30,7 +30,9 @@ export const ActivityDetails = ({
 
   useEffect(() => {
     
-    dispatcher(selectActivity(activityId));
+    dispatcher(setLoading(true));
+    dispatcher(selectActivity(activityId)).then(() => 
+    dispatcher(setLoading(false)));
   }, [dispatcher, activityId,history]); //the [] argument prevents this from running over and over again
 
   if (loading) return <LoadingComponent content="Loading activity..." />;

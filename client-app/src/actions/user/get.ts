@@ -10,8 +10,7 @@ export const getUser = () => async (
 ) => {
   
   const user = await agent.User.current();
-  dispatch(updateToken(user.token));
+  // dispatch(updateToken(user.token));
   dispatch({ type: "USER_UPDATED", payload: user });
-    return Promise.resolve(user);
-  // return Promise.resolve(user);
+  return Promise.resolve(user);
 };

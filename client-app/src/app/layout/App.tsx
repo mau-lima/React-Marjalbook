@@ -20,47 +20,41 @@ import { useThunkDispatch } from "../..";
 import { getUser } from "../../actions/user/get";
 import { setLoading } from "../../actions/loading/set";
 import { ModalContainer } from "../common/modals/ModalContainer";
+import { LoadingComponent } from "./LoadingComponent";
 
 const App = ({ location }: RouteComponentProps) => {
-  const token = useSelector((state: IRootState) => state.token);
-  const dispatch = useThunkDispatch();
-  const user = useSelector((state:IRootState) => state.user)
-
-  useEffect(() => {
-    if (token && !user) {
-      dispatch(setLoading(true));
-      dispatch(getUser()).then(() => dispatch(setLoading(false)));
-    }
-  }, [dispatch,token,user]);
-
-  return (
-    <Fragment>
-      <ModalContainer/>
-      <ToastContainer position="bottom-right" />
-      <Route exact path="/" component={HomePage} />
-      <Route
-        path={"/(.+)"}
-        render={() => (
-          <Fragment>
-            <Navbar />
-            <Container style={{ marginTop: "7em" }}>
-              <Switch>
-                <Route exact path="/activities" component={ActivityDashboard} />
-                <Route path="/activities/:id" component={ActivityDetails} />
-                <Route
-                  key={location.key}
-                  path={["/createActivity", "/updateActivity/:id"]}
-                  component={ActivityForm}
-                />
-                <Route path="/login" component={LoginForm} />
-                <Route component={NotFound} />
-              </Switch>
-            </Container>
-          </Fragment>
-        )}
-      />
-    </Fragment>
-  );
+    return (
+      <Fragment>
+        <ModalContainer />
+        <ToastContainer position="bottom-right" />
+        <Route exact path="/" component={HomePage} />
+        <Route
+          path={"/(.+)"}
+          render={() => (
+            <Fragment>
+              <Navbar />
+              <Container style={{ marginTop: "7em" }}>
+                <Switch>
+                  <Route
+                    exact
+                    path="/activities"
+                    component={ActivityDashboard}
+                  />
+                  <Route path="/activities/:id" component={ActivityDetails} />
+                  <Route
+                    key={location.key}
+                    path={["/createActivity", "/updateActivity/:id"]}
+                    component={ActivityForm}
+                  />
+                  <Route path="/login" component={LoginForm} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Container>
+            </Fragment>
+          )}
+        />
+      </Fragment>
+    );
 };
 
 export default withRouter(App);
