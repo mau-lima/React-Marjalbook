@@ -4,6 +4,8 @@ import { RouteComponentProps } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { selectActivity } from "../../../actions/activities/select";
+import { setLoading } from "../../../actions/loading/set";
+import { getUser } from "../../../actions/user/get";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { IRootState } from "../../../app/models/rootState";
 import { ActivityDetailedChat } from "./ActivityDetailedChat";
@@ -22,10 +24,12 @@ export const ActivityDetails = ({
   const activity = useSelector((state: IRootState) => state.selectedActivity)!;
   const dispatcher = useThunkDispatch();
   const loading = useSelector((state: IRootState) => state.loading);
+  const user = useSelector((state: IRootState) => state.user);
 
   const activityId = match.params.id;
 
   useEffect(() => {
+    
     dispatcher(selectActivity(activityId));
   }, [dispatcher, activityId,history]); //the [] argument prevents this from running over and over again
 
@@ -42,7 +46,7 @@ export const ActivityDetails = ({
         <ActivityDetailedChat />
       </Grid.Column>
       <Grid.Column width={6}>
-        <ActivityDetailedSidebar />
+        <ActivityDetailedSidebar attendees={activity.attendees} />
       </Grid.Column>
     </Grid>
   );

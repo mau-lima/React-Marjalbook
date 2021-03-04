@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { IActivity } from "../../../app/models/activity";
+import { ActivityListItemAttendees } from "./ActivityListItemAttendees";
 
 interface IProps {
   activity: IActivity;
@@ -24,7 +25,7 @@ export const ActivityListItem = ({ activity }: IProps) => {
         <Icon name="clock" /> {format(activity.date, 'HH:MM')}
         <Icon name="marker" /> {activity.venue}, {activity.city}
       </Segment>
-      <Segment secondary>Attendees will go here!!</Segment>
+      <Segment secondary><ActivityListItemAttendees attendees={activity.attendees}/></Segment>
       <Segment clearing>
         <span>{activity.description}</span>
         <Button
