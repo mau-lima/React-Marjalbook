@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Segment, List, Item, Label, Image } from "semantic-ui-react";
-import { IAttendee } from "../../../app/models/activity";
+import { IActivity, IAttendee } from "../../../app/models/activity";
 
 interface IProps {
   attendees: IAttendee[];

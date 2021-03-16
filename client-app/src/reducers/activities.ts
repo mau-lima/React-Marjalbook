@@ -16,6 +16,14 @@ const activitiesReducer = (state: IActivity[] = [], action: any) => {
             const allOtherActivities = state.filter(act => act.id !== action.payload);
             return allOtherActivities;
         }
+        case 'ACTIVITY_ATTENDEE_ADDED':{
+            const allOtherActivities = state.filter(act => act.id !== action.payload.id);
+            return [...allOtherActivities, action.payload];
+        }
+        case 'ACTIVITY_ATTENDEE_DELETED':{
+            const allOtherActivities = state.filter(act => act.id !== action.payload.id);
+            return [...allOtherActivities, action.payload];
+        }
         
         default:{
             return state;
