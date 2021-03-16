@@ -32,31 +32,15 @@ export const ActivityDetails = ({
   const user = useSelector((state: IRootState) => state.user);
 
   useEffect(() => {
-    if (!token) history.push("/");
-    else {
-      if (token && !user) {
-        dispatch(setLoading(true));
-        dispatch(getUser())
-          .then(() => {
-            dispatch(fetchSingleActivity(activityId)).then(() =>
-              dispatch(setLoading(false))
-            );
-          })
-          .catch(() => {
-            //expired token case
-            dispatch(removeToken());
-            history.push("/");
-            dispatch(setLoading(false));
-          });
-      } else {
-        dispatch(fetchSingleActivity(activityId)).then(() =>
-          dispatch(setLoading(false))
-        );
-      }//therehas to be a prettier way to write this
+    if(user){
+      dispatch(setLoading(true));
+      dispatch(fetchSingleActivity(activityId)).then(() =>
+        dispatch(setLoading(false))
+      );
     }
   }, [dispatch, activityId, history, token, user]); //the [] argument prevents this from running over and over again
 
-  if (loading) return <LoadingComponent content="Loading activity..." />;
+  if (loading || !user) return <LoadingComponent content="Loading activity..." />;
 
   if (!activity) return <h2>Activity not found</h2>;
 

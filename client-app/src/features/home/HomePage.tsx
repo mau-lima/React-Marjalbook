@@ -20,18 +20,7 @@ export const HomePage = () => {
 
   const token = useSelector((state: IRootState) => state.token);
 
-  useEffect(() => {
-    if (token && !user) {
-      dispatch(setLoading(true));
-      dispatch(getUser())
-        .catch((err) => {
-          dispatch(removeToken());
-        })
-        .finally(() => {
-          dispatch(setLoading(false));
-        });
-    }
-  }, [dispatch, token, user]);
+  
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
       <Container text>
