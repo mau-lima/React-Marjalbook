@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import  { Fragment } from "react";
 import { Container } from "semantic-ui-react";
 import { Navbar } from "../../features/nav/navbar";
 import { ActivityDashboard } from "../../features/activities/dashboard/ActivityDashboard";
@@ -14,13 +14,7 @@ import { ActivityDetails } from "../../features/activities/details/ActivityDetai
 import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
 import { LoginForm } from "../../features/user/LoginForm";
-import { IRootState } from "../models/rootState";
-import { useSelector } from "react-redux";
-import { useThunkDispatch } from "../..";
-import { getUser } from "../../actions/user/get";
-import { setLoading } from "../../actions/loading/set";
 import { ModalContainer } from "../common/modals/ModalContainer";
-import { LoadingComponent } from "./LoadingComponent";
 
 const App = ({ location }: RouteComponentProps) => {
     return (

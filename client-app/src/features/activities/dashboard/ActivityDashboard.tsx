@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import  { useEffect } from "react";
+import {  useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { fetchAllActivities } from "../../../actions/activities/fetchAll";

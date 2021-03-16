@@ -1,13 +1,10 @@
 import { format } from "date-fns";
-import React from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Segment, Item, Header, Button, Image } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { attendActivity } from "../../../actions/activities/attend";
 import { cancelAttend } from "../../../actions/activities/cancelAttend";
 import { IActivity } from "../../../app/models/activity";
-import { IRootState } from "../../../app/models/rootState";
 
 const activityImageStyle = {
   filter: "brightness(30%)",

@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { shallowEqual, useSelector } from "react-redux";
+import  { useEffect } from "react";
+import {  useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { fetchSingleActivity } from "../../../actions/activities/fetchSingle";
 import { setLoading } from "../../../actions/loading/set";
-import { getUser } from "../../../actions/user/get";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
-import { IActivity } from "../../../app/models/activity";
 import { IRootState } from "../../../app/models/rootState";
 import { ActivityDetailedChat } from "./ActivityDetailedChat";
 import { ActivityDetailedHeader } from "./ActivityDetailedHeader";

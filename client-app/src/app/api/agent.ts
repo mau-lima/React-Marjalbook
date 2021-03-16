@@ -71,4 +71,4 @@ const User = {
   register: (user:IUserFormValues) :Promise<IUser>=> requests.post('/user/register',user),
 }
 
-export default {Activities, User};
+export const Agent = {Activities, User};

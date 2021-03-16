@@ -1,11 +1,8 @@
-import { Dispatch } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { ReduxDispatch } from '../..';
-import  Agent  from "../../app/api/agent";
+import  {Agent}  from "../../app/api/agent";
 import { setActivityProps } from '../../app/common/util/util';
 import { IActivity } from '../../app/models/activity';
 import { IRootState } from '../../app/models/rootState';
-import { setLoading } from '../loading/set';
 import { getUser } from '../user/get';
 
 //this action creator returns a thunk

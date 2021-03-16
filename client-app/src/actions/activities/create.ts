@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-import  Agent  from "../../app/api/agent";
+import  {Agent}  from "../../app/api/agent";
 import { IActivity } from "../../app/models/activity";
 
 //this action creator returns a thunk

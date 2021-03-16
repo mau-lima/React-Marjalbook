@@ -1,6 +1,4 @@
-import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-import Agent from "../../app/api/agent";
 import { createAttendee } from "../../app/common/util/util";
 import { IActivity } from "../../app/models/activity";
 import { IRootState } from "../../app/models/rootState";

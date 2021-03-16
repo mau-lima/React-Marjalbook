@@ -1,4 +1,4 @@
-import agent from "../../app/api/agent";
+import { Agent } from "../../app/api/agent";
 import { IRootState } from "../../app/models/rootState";
 import { IUserFormValues } from "../../app/models/user";
 import { history, ReduxDispatch } from "../.."; //it's from index.tsx
@@ -11,7 +11,7 @@ export const registerUser = (values: IUserFormValues) => async (
   getState: () => IRootState
 ) => {
   try {
-    const user = await agent.User.register(values);
+    const user = await Agent.User.register(values);
     dispatch(updateToken(user.token));
     dispatch(closeModal());
     history.push("/activities");

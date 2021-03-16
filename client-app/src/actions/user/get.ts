@@ -1,7 +1,6 @@
-import agent from "../../app/api/agent";
+import { Agent } from "../../app/api/agent";
 import { IRootState } from "../../app/models/rootState";
 import { ReduxDispatch } from "../.."; //it's from index.tsx
-import { updateToken } from "../token/update";
 
 export const getUser = () => async (
   // thunk
@@ -9,8 +8,7 @@ export const getUser = () => async (
   getState: () => IRootState
 ) => {
   
-  const user = await agent.User.current();
-  // dispatch(updateToken(user.token));
+  const user = await Agent.User.current();
   dispatch({ type: "USER_UPDATED", payload: user });
   return Promise.resolve(user);
 };
