@@ -24,6 +24,10 @@ const activitiesReducer = (state: IActivity[] = [], action: any) => {
             const allOtherActivities = state.filter(act => act.id !== action.payload.id);
             return [...allOtherActivities, action.payload];
         }
+        case 'SINGLE_ACTIVITY_FETCHED':{
+            const allOtherActivities = state.filter(act => act.id !== action.payload.id);
+            return [...allOtherActivities, action.payload];
+        }
         
         default:{
             return state;

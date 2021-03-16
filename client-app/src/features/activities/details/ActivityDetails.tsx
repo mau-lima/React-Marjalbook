@@ -3,7 +3,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
-import { selectActivity } from "../../../actions/activities/select";
+import { fetchSingleActivity } from "../../../actions/activities/fetchSingle";
 import { setLoading } from "../../../actions/loading/set";
 import { getUser } from "../../../actions/user/get";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
@@ -22,17 +22,18 @@ export const ActivityDetails = ({
   match,
   history
 }: RouteComponentProps<DetailParams>) => {
-  const activity = useSelector((state: IRootState) => state.selectedActivity)!;
+  const allActivities = useSelector((state: IRootState) => state.activities);
+  const activityId = match.params.id;
+  const activity = allActivities.find(act => act.id === activityId);
+
   const dispatcher = useThunkDispatch();
   const loading = useSelector((state: IRootState) => state.loading);
-  const user = useSelector((state: IRootState) => state.user);
 
-  const activityId = match.params.id;
+ 
 
   useEffect(() => {
-    
     dispatcher(setLoading(true));
-    dispatcher(selectActivity(activityId)).then(() => 
+    dispatcher(fetchSingleActivity(activityId)).then(() => 
     dispatcher(setLoading(false)));
   }, [dispatcher, activityId,history]); //the [] argument prevents this from running over and over again
 

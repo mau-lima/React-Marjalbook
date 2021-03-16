@@ -10,7 +10,7 @@ import { createActivity } from "../../../actions/activities/create";
 import { updateActivity } from "../../../actions/activities/update";
 import { IRootState } from "../../../app/models/rootState";
 import { RouteComponentProps } from "react-router-dom";
-import { selectActivity } from "../../../actions/activities/select";
+import { fetchSingleActivity } from "../../../actions/activities/fetchSingle";
 import { useThunkDispatch } from "../../..";
 import { Form as FinalForm, Field } from "react-final-form";
 import { TextInput } from "../../../app/common/form/TextInput";
@@ -53,7 +53,7 @@ export const ActivityForm = ({
   useEffect(() => {
     if (match.params.id) {
       dispatch(setLoading(true));
-      dispatch(selectActivity(match.params.id)).then((activity) => {
+      dispatch(fetchSingleActivity(match.params.id)).then((activity) => {
         setActivity(new ActivityFormValues(activity));
         dispatch(setLoading(false));
       });

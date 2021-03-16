@@ -9,7 +9,7 @@ import { setLoading } from '../loading/set';
 import { getUser } from '../user/get';
 
 //this action creator returns a thunk
-export const fetchActivities = () => async (dispatch :ReduxDispatch, getState: () => IRootState) =>{
+export const fetchAllActivities = () => async (dispatch :ReduxDispatch, getState: () => IRootState) =>{
     const state = getState();
     const user = state.user || await dispatch(getUser());
     

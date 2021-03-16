@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
-import { fetchActivities } from "../../../actions/activities/fetch";
+import { fetchAllActivities } from "../../../actions/activities/fetchAll";
 import { setLoading } from "../../../actions/loading/set";
 import { LoadingComponent } from "../../../app/layout/LoadingComponent";
 import { IRootState } from "../../../app/models/rootState";
@@ -15,7 +15,7 @@ export const ActivityDashboard = () => {
 
   useEffect(() => {
     dispatch(setLoading(true));
-    dispatch(fetchActivities()).then(() => dispatch(setLoading(false)));
+    dispatch(fetchAllActivities()).then(() => dispatch(setLoading(false)));
   }, [dispatch]); //the [] argument prevents this from running over and over again
 
   if (loading) return <LoadingComponent content="Loading activities..." />;

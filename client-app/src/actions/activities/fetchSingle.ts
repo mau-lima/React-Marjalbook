@@ -7,7 +7,7 @@ import { setActivityBeingDeleted } from "../activityBeingDeleted/set";
 import { setLoading } from "../loading/set";
 import { getUser } from "../user/get";
 
-export const selectActivity = (activityUUID: string | null) => async (
+export const fetchSingleActivity = (activityUUID: string | null) => async (
   dispatch: ReduxDispatch,
   getState: () => IRootState
 ) => {
@@ -24,6 +24,6 @@ export const selectActivity = (activityUUID: string | null) => async (
     }
   }
   console.log(activity);
-  dispatch({ type: "ACTIVITY_SELECTED", payload: activity });
+  dispatch({ type: "SINGLE_ACTIVITY_FETCHED", payload: activity });
   return Promise.resolve(activity);
 };
