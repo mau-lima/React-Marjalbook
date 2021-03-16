@@ -12,13 +12,17 @@ import { ActivityList } from "./ActivityList";
 export const ActivityDashboard = () => {
   const dispatch = useThunkDispatch();
   const loading = useSelector((state: IRootState) => state.loading);
-
+  const user = useSelector((state: IRootState) => state.user);
+  
   useEffect(() => {
-    dispatch(setLoading(true));
-    dispatch(fetchAllActivities()).then(() => dispatch(setLoading(false)));
+    if(user){
+      dispatch(setLoading(true));
+      dispatch(fetchAllActivities()).then(() => dispatch(setLoading(false)));
+    }
+    
   }, [dispatch]); //the [] argument prevents this from running over and over again
 
-  if (loading) return <LoadingComponent content="Loading activities..." />;
+  if (loading || !user) return <LoadingComponent content="Loading activities..." />;
   else
     return (
       <Grid>
