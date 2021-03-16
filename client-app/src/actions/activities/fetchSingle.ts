@@ -1,9 +1,7 @@
-import { Dispatch } from "redux";
 import { ReduxDispatch } from "../..";
 import Agent from "../../app/api/agent";
 import { setActivityProps } from "../../app/common/util/util";
 import { IRootState } from "../../app/models/rootState";
-import { setActivityBeingDeleted } from "../activityBeingDeleted/set";
 import { setLoading } from "../loading/set";
 import { getUser } from "../user/get";
 
