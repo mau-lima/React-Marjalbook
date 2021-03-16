@@ -20,7 +20,7 @@ export const ActivityDashboard = () => {
       dispatch(fetchAllActivities()).then(() => dispatch(setLoading(false)));
     }
     
-  }, [dispatch]); //the [] argument prevents this from running over and over again
+  }, [dispatch,user]); //the [] argument prevents this from running over and over again
 
   if (loading || !user) return <LoadingComponent content="Loading activities..." />;
   else

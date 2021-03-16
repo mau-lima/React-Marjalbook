@@ -1,12 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import  { Fragment} from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useThunkDispatch } from "../..";
-import { setLoading } from "../../actions/loading/set";
 import { openModal } from "../../actions/modal/open";
-import { removeToken } from "../../actions/token/remove";
-import { getUser } from "../../actions/user/get";
 import { LoadingComponent } from "../../app/layout/LoadingComponent";
 import { IRootState } from "../../app/models/rootState";
 import { LoginForm } from "../user/LoginForm";
@@ -17,8 +14,6 @@ export const HomePage = () => {
   const loading = useSelector((state: IRootState) => state.loading);
   const dispatch = useThunkDispatch();
   const isLoggedIn = !!user;
-
-  const token = useSelector((state: IRootState) => state.token);
 
   
   return (

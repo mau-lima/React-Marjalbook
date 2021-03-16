@@ -19,13 +19,11 @@ import { useThunkDispatch } from "../..";
 import { setLoading } from "../../actions/loading/set";
 import { removeToken } from "../../actions/token/remove";
 import { getUser } from "../../actions/user/get";
-import token from "../../reducers/token";
 import { IRootState } from "../models/rootState";
 import { history } from "../..";
 
 const App = ({ location }: RouteComponentProps) => {
   const user = useSelector((state: IRootState) => state.user);
-  const loading = useSelector((state: IRootState) => state.loading);
   const dispatch = useThunkDispatch();
   const token = useSelector((state: IRootState) => state.token);
 
@@ -34,7 +32,7 @@ const App = ({ location }: RouteComponentProps) => {
     else if (token && !user) {
       dispatch(setLoading(true));
       dispatch(getUser())
-        .catch((err) => {
+        .catch(() => {
           dispatch(removeToken());
         })
         .finally(() => {
