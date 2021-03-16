@@ -15,12 +15,12 @@ const validate = combineValidators({
 });
 
 export const LoginForm = () => {
-  const dispatcher = useThunkDispatch();
+  const dispatch = useThunkDispatch();
   return (
     
     <FinalForm
       onSubmit={(values: IUserFormValues) =>
-        dispatcher(loginUser(values)).catch((error) => ({
+        dispatch(loginUser(values)).catch((error) => ({
           [FORM_ERROR]: error,
         }))
       }

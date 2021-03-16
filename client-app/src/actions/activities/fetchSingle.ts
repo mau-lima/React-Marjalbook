@@ -2,14 +2,13 @@ import { ReduxDispatch } from "../..";
 import { Agent } from "../../app/api/agent";
 import { setActivityProps } from "../../app/common/util/util";
 import { IRootState } from "../../app/models/rootState";
-import { getUser } from "../user/get";
 
 export const fetchSingleActivity = (activityUUID: string | null) => async (
   dispatch: ReduxDispatch,
   getState: () => IRootState
 ) => {
   const state = getState();
-  const user = state.user || await dispatch(getUser());;
+  const user = state.user! ;
 
   let activity = null;
   if (activityUUID) {

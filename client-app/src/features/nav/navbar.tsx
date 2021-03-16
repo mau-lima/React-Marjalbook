@@ -7,7 +7,7 @@ import { logoutUser } from "../../actions/user/logout";
 import { IRootState } from "../../app/models/rootState";
 export const Navbar = () => {
   const user = useSelector((state: IRootState) => state.user);
-  const dispatcher = useThunkDispatch();
+  const dispatch = useThunkDispatch();
   return (
     <Menu fixed="top" inverted>
       <Container>
@@ -39,7 +39,7 @@ export const Navbar = () => {
                   text="My profile"
                   icon="user"
                 />
-                <Dropdown.Item  text="Logout" icon="power" onClick={() =>dispatcher(logoutUser())}/>
+                <Dropdown.Item  text="Logout" icon="power" onClick={() =>dispatch(logoutUser())}/>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>

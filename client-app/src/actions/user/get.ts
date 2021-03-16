@@ -7,8 +7,14 @@ export const getUser = () => async (
   dispatch: ReduxDispatch,
   getState: () => IRootState
 ) => {
-  
-  const user = await Agent.User.current();
-  dispatch({ type: "USER_UPDATED", payload: user });
-  return Promise.resolve(user);
+  let user = null;
+  try{
+     user = await Agent.User.current();
+     dispatch({ type: "USER_UPDATED", payload: user });
+     return Promise.resolve(user);
+  }
+  catch (err){
+    dispatch({ type: "USER_UPDATED", payload: user });
+    return Promise.reject(err);
+  }
 };

@@ -5,6 +5,7 @@ import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useThunkDispatch } from "../..";
 import { setLoading } from "../../actions/loading/set";
 import { openModal } from "../../actions/modal/open";
+import { removeToken } from "../../actions/token/remove";
 import { getUser } from "../../actions/user/get";
 import { LoadingComponent } from "../../app/layout/LoadingComponent";
 import { IRootState } from "../../app/models/rootState";
@@ -22,9 +23,13 @@ export const HomePage = () => {
   useEffect(() => {
     if (token && !user) {
       dispatch(setLoading(true));
-      dispatch(getUser()).then(() => {
-        dispatch(setLoading(false));
-      });
+      dispatch(getUser())
+        .catch((err) => {
+          dispatch(removeToken());
+        })
+        .finally(() => {
+          dispatch(setLoading(false));
+        });
     }
   }, [dispatch, token, user]);
   return (
@@ -39,7 +44,9 @@ export const HomePage = () => {
           />
           Reactivities
         </Header>
-        {loading?<LoadingComponent content="Loading..."/>:(isLoggedIn && user) ? (
+        {loading ? (
+          <LoadingComponent content="Loading..." />
+        ) : isLoggedIn && user ? (
           <Fragment>
             <Header
               as="h2"
@@ -53,10 +60,20 @@ export const HomePage = () => {
         ) : (
           <Fragment>
             <Header as="h2" inverted content="Welcome to Reactivities" />
-            <Button onClick={()=> dispatch(openModal(<LoginForm/>))} to="/login" size="huge" inverted>
+            <Button
+              onClick={() => dispatch(openModal(<LoginForm />))}
+              to="/login"
+              size="huge"
+              inverted
+            >
               Login
             </Button>
-            <Button onClick={()=> dispatch(openModal(<RegisterForm/>))} to="/register" size="huge" inverted>
+            <Button
+              onClick={() => dispatch(openModal(<RegisterForm />))}
+              to="/register"
+              size="huge"
+              inverted
+            >
               Register
             </Button>
           </Fragment>

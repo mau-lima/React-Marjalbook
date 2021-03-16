@@ -17,12 +17,12 @@ const validate = combineValidators({
 });
 
 export const RegisterForm = () => {
-  const dispatcher = useThunkDispatch();
+  const dispatch = useThunkDispatch();
   return (
     
     <FinalForm
       onSubmit={(values: IUserFormValues) =>
-        dispatcher(registerUser(values)).catch((error) => ({
+        dispatch(registerUser(values)).catch((error) => ({
           [FORM_ERROR]: error,
         }))
       }

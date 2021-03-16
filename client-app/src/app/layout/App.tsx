@@ -13,7 +13,6 @@ import { HomePage } from "../../features/home/HomePage";
 import { ActivityDetails } from "../../features/activities/details/ActivityDetails";
 import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
-import { LoginForm } from "../../features/user/LoginForm";
 import { ModalContainer } from "../common/modals/ModalContainer";
 
 const App = ({ location }: RouteComponentProps) => {
@@ -40,7 +39,6 @@ const App = ({ location }: RouteComponentProps) => {
                     path={["/createActivity", "/updateActivity/:id"]}
                     component={ActivityForm}
                   />
-                  <Route path="/login" component={LoginForm} />
                   <Route component={NotFound} />
                 </Switch>
               </Container>
