@@ -8,7 +8,6 @@ interface IProps {
 }
 
 export const ActivityDetailedSidebar = ({ attendees }: IProps) => {
-  const isHost = false;
   return (
     <Fragment>
       <Segment
@@ -25,7 +24,7 @@ export const ActivityDetailedSidebar = ({ attendees }: IProps) => {
         <List relaxed divided>
           {attendees.map((attendee) => (
             <Item key={attendee.username} style={{ position: "relative" }}>
-              {isHost && (
+              {attendee.isHost && (
                 <Label
                   style={{ position: "absolute" }}
                   color="orange"

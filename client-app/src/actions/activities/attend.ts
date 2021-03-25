@@ -4,7 +4,6 @@ import { Agent } from "../../app/api/agent";
 import { createAttendee } from "../../app/common/util/util";
 import { IActivity } from "../../app/models/activity";
 import { IRootState } from "../../app/models/rootState";
-import { setLoading } from "../loading/set";
 
 //this action creator returns a thunk
 export const attendActivity = (activity: IActivity) => async (

@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import { toast } from "react-toastify";
 import { IActivity } from "../../app/models/activity";
 import { IRootState } from "../../app/models/rootState";
-import { setLoading } from "../loading/set";
 import { Agent } from "../../app/api/agent";
 
 //this action creator returns a thunk
