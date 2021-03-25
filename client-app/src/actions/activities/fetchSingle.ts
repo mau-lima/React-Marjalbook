@@ -19,7 +19,6 @@ export const fetchSingleActivity = (activityUUID: string | null) => async (
       setActivityProps(activity, user);
     }
   }
-  console.log(activity);
   dispatch({ type: "SINGLE_ACTIVITY_FETCHED", payload: activity });
   return Promise.resolve(activity);
 };
