@@ -1,9 +1,10 @@
 import { format } from "date-fns";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Segment, Item, Header, Button, Image } from "semantic-ui-react";
 import { useThunkDispatch } from "../../..";
 import { attendActivity } from "../../../actions/activities/attend";
-import { cancelAttend } from "../../../actions/activities/cancelAttend";
+import { unattendActivity } from "../../../actions/activities/unattendActivity";
 import { IActivity } from "../../../app/models/activity";
 
 const activityImageStyle = {
@@ -25,6 +26,7 @@ interface IProps {
 
 export const ActivityDetailedHeader = ({ activity }: IProps) => {
   const dispatch = useThunkDispatch();
+  const [btnLoading, setBtnLoading] = useState(false);
   // the basic tag removes the default segment styling
   return (
     <Segment.Group>
@@ -63,9 +65,28 @@ export const ActivityDetailedHeader = ({ activity }: IProps) => {
             Manage Event
           </Button>
         ) : activity.isGoing ? (
-          <Button onClick={()=>{dispatch(cancelAttend(activity))}}>Cancel attendance</Button>
+          <Button
+            loading={btnLoading}
+            onClick={async () => {
+              setBtnLoading(true);
+              await dispatch(unattendActivity(activity));
+              setBtnLoading(false);
+            }}
+          >
+            Cancel attendance
+          </Button>
         ) : (
-          <Button color="teal"onClick={()=>{dispatch(attendActivity(activity))}}>Join Activity</Button>
+          <Button
+            loading={btnLoading}
+            color="teal"
+            onClick={async () => {
+              setBtnLoading(true);
+              await dispatch(attendActivity(activity));
+              setBtnLoading(false);
+            }}
+          >
+            Join Activity
+          </Button>
         )}
       </Segment>
     </Segment.Group>

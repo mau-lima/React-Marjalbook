@@ -3,6 +3,7 @@ import { history } from "../.."; //it's from index.tsx
 import { toast } from "react-toastify";
 import { IActivity } from "../models/activity";
 import { IUser, IUserFormValues } from "../models/user";
+import { request } from "http";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
@@ -63,6 +64,8 @@ const Activities = {
   update: (activity: IActivity) =>
     requests.put(`/activities/${activity.id}`, activity),
   delete: (id: string) => requests.delete(`activities/${id}`),
+  attend: (id: string) => requests.post(`activities/${id}/attend`,{}),
+  unattend: (id: string) => requests.delete(`activities/${id}/attend`)
 };
 
 const User = {
